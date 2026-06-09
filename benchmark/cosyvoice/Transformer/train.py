@@ -14,8 +14,8 @@ import matplotlib
 matplotlib.use('Agg')  # Non-interactive backend
 import matplotlib.pyplot as plt
 
-from model import BlendshapeDecoder, BlendshapeEncoderDecoder, BlendshapeDecoderConv1D
-from loss import BlendshapeLoss, BlendshapeLossL1Pure
+from model import BlendshapeDecoder
+from loss import BlendshapeLoss
 from dataloader import SpeechBlendshapeDataset, collate_fn
 from utils import get_arkit_mask
 
@@ -359,17 +359,6 @@ def create_trainer(config):
         pin_memory=True
     )
     
-    # # Create model
-    # model = BlendshapeEncoderDecoder(
-    #     vocab_size=config.get('vocab_size', 6561),
-    #     d_model=config.get('d_model', 512),
-    #     nhead=config.get('nhead', 8),
-    #     num_encoder_layers=config.get('num_encoder_layers', 6),
-    #     num_decoder_layers=config.get('num_decoder_layers', 6),
-    #     dim_feedforward=config.get('dim_feedforward', 2048),
-    #     dropout=config.get('dropout', 0.1),
-    #     max_target_len=config.get('max_target_len', 2000)
-    # )
 
     # # Create model
     model = BlendshapeDecoder(
@@ -380,16 +369,6 @@ def create_trainer(config):
         dim_feedforward=config.get('dim_feedforward', 2048),
         dropout=config.get('dropout', 0.1)
     )
-
-    # Create model
-    # model = BlendshapeDecoderConv1D(
-    #     vocab_size=config.get('vocab_size', 8192),
-    #     d_model=config.get('d_model', 512),
-    #     nhead=config.get('nhead', 8),
-    #     num_layers=config.get('num_layers', 6),
-    #     dim_feedforward=config.get('dim_feedforward', 2048),
-    #     dropout=config.get('dropout', 0.1)
-    # )
 
     print(f"Model parameters: {count_parameters(model):,}")
 
@@ -416,8 +395,7 @@ def create_trainer(config):
             print(f"  (Close to 1 means queries are too similar!)")
         
     # Create loss
-    # criterion = BlendshapeLoss(loss_type=config.get('loss_type', 'l1'))
-    criterion = BlendshapeLossL1Pure()
+    criterion = BlendshapeLoss(loss_type=config.get('loss_type', 'l1'))
     
     # Get blendshape mask
     blendshape_mask = get_arkit_mask(

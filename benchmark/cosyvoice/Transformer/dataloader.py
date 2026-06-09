@@ -197,37 +197,37 @@ def collate_fn(batch):
     }
 
 
-# Test
-if __name__ == "__main__":
-    import argparse
+# # Test
+# if __name__ == "__main__":
+#     import argparse
     
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--speech_tokens', required=True)
-    parser.add_argument('--beat2_dir', required=True)
-    parser.add_argument('--batch_size', type=int, default=4)
-    args = parser.parse_args()
+#     parser = argparse.ArgumentParser()
+#     parser.add_argument('--speech_tokens', required=True)
+#     parser.add_argument('--beat2_dir', required=True)
+#     parser.add_argument('--batch_size', type=int, default=4)
+#     args = parser.parse_args()
     
-    dataset = SpeechBlendshapeDataset(
-        speech_tokens_path=args.speech_tokens,
-        beat2_dir=args.beat2_dir
-    )
+#     dataset = SpeechBlendshapeDataset(
+#         speech_tokens_path=args.speech_tokens,
+#         beat2_dir=args.beat2_dir
+#     )
     
-    dataloader = torch.utils.data.DataLoader(
-        dataset,
-        batch_size=args.batch_size,
-        shuffle=True,
-        collate_fn=collate_fn
-    )
+#     dataloader = torch.utils.data.DataLoader(
+#         dataset,
+#         batch_size=args.batch_size,
+#         shuffle=True,
+#         collate_fn=collate_fn
+#     )
     
-    print("\nTesting DataLoader...")
-    for i, batch in enumerate(dataloader):
-        print(f"\nBatch {i+1}:")
-        print(f"  Tokens: {batch['speech_tokens'].shape}")
-        print(f"  Blendshapes: {batch['arkit_blendshapes'].shape}")
-        print(f"  Token lengths: {batch['token_lengths'].tolist()}")
-        print(f"  Frame lengths: {batch['frame_lengths'].tolist()}")
+#     print("\nTesting DataLoader...")
+#     for i, batch in enumerate(dataloader):
+#         print(f"\nBatch {i+1}:")
+#         print(f"  Tokens: {batch['speech_tokens'].shape}")
+#         print(f"  Blendshapes: {batch['arkit_blendshapes'].shape}")
+#         print(f"  Token lengths: {batch['token_lengths'].tolist()}")
+#         print(f"  Frame lengths: {batch['frame_lengths'].tolist()}")
         
-        if i >= 2:
-            break
+#         if i >= 2:
+#             break
     
-    print("\n✅ DataLoader OK!")
+#     print("\n✅ DataLoader OK!")
