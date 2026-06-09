@@ -1,0 +1,36 @@
+# Default training configuration
+training:
+  # Data
+  train_tokens: '../all_speakers/splits/utt2speech_token_train.pt'
+  val_tokens: '../all_speakers/splits/utt2speech_token_val.pt'
+  beat2_dir: '../../BEAT2/beat_english_v2.0.0/smplxflame_30'
+  
+  # Model
+  vocab_size: 6561
+  d_model: 512
+  nhead: 8
+  num_encoder_layers: 6 
+  num_decoder_layers: 6  
+  dim_feedforward: 2048
+  dropout: 0.1
+  max_target_len: 2000 
+  
+  # Training
+  batch_size: 64
+  num_epochs: 1000
+  lr: 0.0001
+  min_lr: 0.000001
+  weight_decay: 0.01
+  num_workers: 4
+  
+  # Loss
+  loss_type: 'l1'
+  
+  # Logging
+  checkpoint_dir: 'checkpoints'
+  log_dir: 'logs'
+  save_every: 100
+  validate_every: 5
+  
+  # Device
+  device: 'cuda'
