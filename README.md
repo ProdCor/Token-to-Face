@@ -14,6 +14,8 @@ _The choice of speech representation is critical in speech-driven 3D facial anim
 
 The part of this repository dedicated to reproducing the results from the research paper is divided into "comparison" and "probing". The folders "data" and "pretrained_models" are suggestions for places to insert data from the BEAT 2 dataset and model weights for each evaluated speech encoder, respectively.
 
+In each model folder, you will find general instructions to run the the speech encoder and the facial decoder to generate the blendshape vectors.
+
 #### Environment Installations
 
 In the "comparison", each model has its own conda environment. To create the environment, simply run
@@ -35,3 +37,18 @@ conda activate {MODEL_NAME}
 ```
 
 Where {MODEL_NAME} can be cosyvoice, wavtokenizer, or speechtokenizer.
+
+For probing, you can use the environment cosyvoice.
+
+#### Citation
+
+If you use this code in your research, please cite:
+
+```bibtex
+@inproceedings{correa2026fromtokens,
+  title     = {From Tokens to Faces: Evaluating Discrete Speech Representation for 3D Facial Animation},
+  author    = {Correa, Pedro and Perrotin, Olivier and Sadok, Samir and Costa, Paula and Hueber, Thomas},
+  booktitle = {Proc. Interspeech 2026},
+  year      = {2026},
+}
+```
