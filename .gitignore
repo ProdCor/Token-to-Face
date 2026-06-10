@@ -1,0 +1,11 @@
+**/__pycache__/
+*.pyc
+*.pyo
+
+benchmark/hubert/GRU_facediffuser_adapt/hubert/__pycache__
+benchmark/hubert/Transformer/hubert/__pycache__
+
+probing/extracted_tokens
+
+lip_closure_v2.py
+evaluate4_fine_v3.py
