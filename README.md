@@ -13,3 +13,25 @@ _The choice of speech representation is critical in speech-driven 3D facial anim
 #### General Instructions
 
 The part of this repository dedicated to reproducing the results from the research paper is divided into "comparison" and "probing". The folders "data" and "pretrained_models" are suggestions for places to insert data from the BEAT 2 dataset and model weights for each evaluated speech encoder, respectively.
+
+#### Environment Installations
+
+In the "comparison", each model has its own conda environment. To create the environment, simply run
+
+```bash
+conda env create -f environment.yml
+```
+
+When GRU is the archicture from the facial decoder, all the environments are the same, extracted from the FaceDiffuser repository. 
+
+```bash
+conda activate face_diffuser
+```
+
+When the archicture is the Transformer, each speech encoder has its own environment, extracted from each model repository.
+
+```bash
+conda activate {MODEL_NAME}
+```
+
+Where {MODEL_NAME} can be cosyvoice, wavtokenizer, or speechtokenizer.
