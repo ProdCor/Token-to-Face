@@ -155,22 +155,6 @@ def load_beat2_blendshapes(beat2_dir, transform_path, split=None):
     logger.info(f"Loaded blendshapes for {len(utt2bs)} utterances (skipped {skipped})")
     return utt2bs
 
-
-'''def load_hubert_features(features_file):
-    """Load HuBERT features. Returns {utt_id: np.array (T, 768)}"""
-    logger.info(f"Loading HuBERT features from {features_file}")
-    raw = torch.load(features_file, map_location="cpu", weights_only=False)
-    utt2feat = {}
-    for k, v in raw.items():
-        utt2feat[k] = np.array(v, dtype=np.float32)
-
-    all_lens = [v.shape[0] for v in utt2feat.values()]
-    feat_dim = next(iter(utt2feat.values())).shape[1]
-    logger.info(f"Loaded {len(utt2feat)} utterances "
-                f"(lengths: min={min(all_lens)}, max={max(all_lens)}, "
-                f"mean={np.mean(all_lens):.0f}, feat_dim={feat_dim})")
-    return utt2feat'''
-
 def load_hubert_features(features_path):
     """Load HuBERT features from single file or directory of parts."""
     features_path = Path(features_path)
@@ -345,35 +329,6 @@ def build_aligned_dataset(utt2feat, utt2bs, beat2_dir=None):
 # ──────────────────────────────────────────────────────────────────────
 # Quantize HuBERT → pseudo-tokens
 # ──────────────────────────────────────────────────────────────────────
-'''def quantize_features(all_features, n_pseudo_tokens=1024, subsample_for_kmeans=500_000):
-    """K-Means on HuBERT embeddings to create pseudo-tokens."""
-    N = all_features.shape[0]
-    logger.info(f"Quantizing {N} frames into {n_pseudo_tokens} pseudo-tokens...")
-
-    # Subsample for K-Means fitting (speed)
-    if N > subsample_for_kmeans:
-        rng = np.random.RandomState(42)
-        idx = rng.choice(N, subsample_for_kmeans, replace=False)
-        fit_data = all_features[idx].astype(np.float32)
-    else:
-        fit_data = all_features
-
-    logger.info(f"  Fitting MiniBatchKMeans on {len(fit_data)} samples...")
-    km = MiniBatchKMeans(
-        n_clusters=n_pseudo_tokens, random_state=42,
-        batch_size=10000, max_iter=300, n_init=3
-    )
-    km.fit(fit_data)
-
-    # Predict all frames
-    logger.info("  Assigning pseudo-tokens to all frames...")
-    pseudo_tokens = km.predict(all_features)
-    n_unique = len(np.unique(pseudo_tokens))
-    logger.info(f"  {n_unique}/{n_pseudo_tokens} pseudo-tokens actually used")
-
-    return pseudo_tokens, km'''
-
-
 def quantize_features(all_features, n_pseudo_tokens=1024, subsample_for_kmeans=500_000):
     N = all_features.shape[0]
     logger.info(f"Quantizing {N} frames into {n_pseudo_tokens} pseudo-tokens...")
@@ -502,17 +457,8 @@ def run_mi_analysis(pseudo_tokens, all_bs, all_phonemes, k_bs=32):
         "H_cluster_given_token": H_cond,
         "information_reduction": info_red,
     }
-
-    # Per-region NMI
-    # for region_name, indices in BLENDSHAPE_GROUPS.items():
-    #     bs_region = all_bs[:, indices]
-    #     bs_region_scaled = StandardScaler().fit_transform(bs_region)
-    #     km_r = KMeans(n_clusters=min(k_bs, len(indices) * 2),
-    #                   random_state=42, n_init=10)
-    #     cl_r = km_r.fit_predict(bs_region_scaled)
-    #     nmi_r = normalized_mutual_info_score(pseudo_tokens, cl_r)
-    #     results[f"k{k_bs}"][f"NMI_{region_name}"] = nmi_r
-    #     logger.info(f"  NMI({region_name}) = {nmi_r:.4f}")
+    
+  logger.info(f"  NMI({region_name}) = {nmi_r:.4f}")
 
     # Per-region NMI
     for region_name, indices in BLENDSHAPE_GROUPS.items():
