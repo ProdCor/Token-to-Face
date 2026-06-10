@@ -32,7 +32,7 @@ class SpeechBlendshapeDataset(Dataset):
         self,
         speech_tokens_path,
         beat2_dir,
-        arkit_transform_path='../arkit_to_flame.npy',
+        arkit_transform_path='arkit_to_flame.npy',
         mask_categories=['jaw', 'mouth'],
         fps=30,
         chunk_duration=30.0,

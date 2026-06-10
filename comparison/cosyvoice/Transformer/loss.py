@@ -1,3 +1,11 @@
+#!/usr/bin/env python3
+"""
+Loss functions for blendshape prediction
+"""
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
 class BlendshapeLoss(nn.Module):
     def __init__(self, loss_type='l1', reduction='mean', 
                  velocity_weight=0.3, smoothness_weight=0.05):

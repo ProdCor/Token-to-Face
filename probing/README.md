@@ -10,3 +10,4 @@ For the HuBERT encoder, run the scripts in the hubert_probing for the HuBERT enc
 
 In order to fairly compare speech representations during probing, we transform HuBERT representations into a discrete form via k-means. The merge_hubert_parts.py script is meant to aggregate the HuBERT representations in one, since the extract_hubert_features.py script saved the continuous representations from the audio samples incrementally to avoid OOM.
 
+Use the same conda environment used for cosyvoice to run probing scripts.
