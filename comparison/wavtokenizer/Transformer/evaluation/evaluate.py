@@ -7,11 +7,6 @@ import sys
 from scipy.fft import rfft, rfftfreq
 import torch
 
-# # Import utilities for FLAME to ARKit conversion
-# sys.path.append('../')
-# from utils import flame_to_arkit_blendshapes
-
-
 # =============================================================================
 # SMOOTHNESS METRICS
 # =============================================================================

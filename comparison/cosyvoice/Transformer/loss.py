@@ -31,11 +31,10 @@ class BlendshapeLoss(nn.Module):
         """
         Compute loss with velocity and smoothness terms
         
-        IMPORTANTE: Não aplicamos mask aqui porque target já tem zeros nos
-        blendshapes não-ativos, então a loss vai penalizar automaticamente
-        se o modelo prever não-zero para eles.
+        IMPORTANT: We don't apply a mask here because target already has zeros in the inactive blendshapes, 
+        so the loss will automatically penalize them if the model predicts non-zero for them.
         """
-        # Main reconstruction loss - PENALIZA TUDO
+        # Main reconstruction loss - penalize everything
         loss = self.loss_fn(pred, target)  # (batch, seq_len, 51)
         
         # Apply frame length mask (ignora padding)

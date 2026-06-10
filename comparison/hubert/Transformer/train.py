@@ -362,18 +362,6 @@ def create_trainer(config):
         collate_fn=collate_fn,
         pin_memory=True
     )
-    
-    # # Create model
-    # model = BlendshapeEncoderDecoder(
-    #     vocab_size=config.get('vocab_size', 6561),
-    #     d_model=config.get('d_model', 512),
-    #     nhead=config.get('nhead', 8),
-    #     num_encoder_layers=config.get('num_encoder_layers', 6),
-    #     num_decoder_layers=config.get('num_decoder_layers', 6),
-    #     dim_feedforward=config.get('dim_feedforward', 2048),
-    #     dropout=config.get('dropout', 0.1),
-    #     max_target_len=config.get('max_target_len', 2000)
-    # )
 
     # # Create model
     model = BlendshapeDecoder(
@@ -383,16 +371,6 @@ def create_trainer(config):
         dim_feedforward=config.get('dim_feedforward', 2048),
         dropout=config.get('dropout', 0.1)
     )
-
-    # Create model
-    # model = BlendshapeDecoderConv1D(
-    #     vocab_size=config.get('vocab_size', 8192),
-    #     d_model=config.get('d_model', 512),
-    #     nhead=config.get('nhead', 8),
-    #     num_layers=config.get('num_layers', 6),
-    #     dim_feedforward=config.get('dim_feedforward', 2048),
-    #     dropout=config.get('dropout', 0.1)
-    # )
 
     print(f"Model parameters: {count_parameters(model):,}")
 

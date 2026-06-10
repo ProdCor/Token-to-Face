@@ -96,15 +96,6 @@ def load_model_from_checkpoint(checkpoint_path, config, device):
         dim_feedforward=model_config.get('dim_feedforward', 2048),
         dropout=model_config.get('dropout', 0.1)
     )
-
-    # model = BlendshapeDecoderConv1D(
-    #     vocab_size=model_config.get('vocab_size', 6561),
-    #     d_model=model_config.get('d_model', 512),
-    #     nhead=model_config.get('nhead', 8),
-    #     num_layers=model_config.get('num_layers', 6),
-    #     dim_feedforward=model_config.get('dim_feedforward', 2048),
-    #     dropout=model_config.get('dropout', 0.1)
-    # )
     
     logging.info(f"Loading checkpoint from: {checkpoint_path}")
     checkpoint = torch.load(checkpoint_path, map_location=device)
@@ -410,17 +401,3 @@ python inference_batch.py \
     --tokens ../all_speakers/splits/utt2speech_token_test.pt \
     --output_dir results/mouth_jaw_test_set_1000ep_4bs_no_overlap_l1_pure
 '''
-
-# checkpoints/mouth_jaw_1000ep_4bs_no_overlap_vel0.2_smooth0.01/jaw_mouth_model_epoch_999.pth
-# checkpoints/mouth_jaw_1000ep_4bs_no_overlap_vel0.3_smooth0.01/jaw_mouth_model_epoch_999.pth
-# checkpoints/mouth_jaw_1000ep_4bs_no_overlap_vel0.3_smooth0.005/jaw_mouth_model_epoch_999.pth
-
-# checkpoints/cben_1000ep_32bs_no_overlap_vel0.2_smooth0.01/eye_blink_eye_look_eye_shape_brow_cheek_nose_model_epoch_999.pth
-# checkpoints/cben_1000ep_32bs_no_overlap_vel0.3_smooth0.01/eye_blink_eye_look_eye_shape_brow_cheek_nose_model_epoch_999.pth
-# checkpoints/cben_1000ep_32bs_no_overlap_vel0.3_smooth0.005/eye_blink_eye_look_eye_shape_brow_cheek_nose_model_epoch_999.pth
-# checkpoints/cben_1000ep_64bs_no_overlap_vel0.3_smooth0.005/eye_blink_eye_look_eye_shape_brow_cheek_nose_model_epoch_999.pth
-
-# checkpoints/all_1000ep_4bs_no_overlap/all_model_epoch_999.pth
-# checkpoints/all_1000ep_32bs_no_overlap/all_model_epoch_999.pth
-# checkpoints/all_1000ep_4bs_no_overlap/best_model.pth
-# checkpoints/all_1000ep_32bs_no_overlap/best_model.pth

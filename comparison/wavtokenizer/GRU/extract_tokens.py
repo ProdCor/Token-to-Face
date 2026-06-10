@@ -1,31 +1,3 @@
-'''import torchaudio
-import torch
-import sys
-import os
-
-# Add the 'WavTokenizer' directory to Python's search path
-sys.path.append(os.path.join(os.getcwd(), 'WavTokenizer'))
-
-from encoder.utils import convert_audio
-from decoder.pretrained import WavTokenizer
-
-device=torch.device('cuda')
-
-config_path = "./WavTokenizer/configs/wavtokenizer_smalldata_frame75_3s_nq1_code4096_dim512_kmeans200_attn.yaml"
-model_path = "./pretrained_models/WavTokenizer_small_320_24k_4096.ckpt"
-audio_path = 'chunk_0_audio.wav'
-
-wavtokenizer = WavTokenizer.from_pretrained0802(config_path, model_path)
-wavtokenizer = wavtokenizer.to(device)
-
-wav, sr = torchaudio.load(audio_path)
-wav = convert_audio(wav, sr, 24000, 1) 
-bandwidth_id = torch.tensor([0])
-wav=wav.to(device)
-_,discrete_code= wavtokenizer.encode_infer(wav, bandwidth_id=bandwidth_id)
-print(discrete_code.shape)'''
-
-
 #!/usr/bin/env python3
 """
 Extract WavTokenizer tokens from BEAT2 audio files with train/val/test splits

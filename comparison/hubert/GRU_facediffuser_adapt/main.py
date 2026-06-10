@@ -147,121 +147,6 @@ def trainer_diff(args, train_loader, dev_loader, model, diffusion, optimizer, ep
     return model
 
 
-'''@torch.no_grad()
-def test_diff(args, model, test_loader, epoch, diffusion, device="cuda"):
-    result_path = os.path.join(args.result_path)
-    if os.path.exists(result_path):
-        shutil.rmtree(result_path)
-    os.makedirs(result_path)
-
-    save_path = os.path.join(args.save_path)
-    train_subjects_list = [i for i in args.train_subjects.split(" ")]
-
-    model.load_state_dict(torch.load(os.path.join(save_path, f'{args.model}_{args.dataset}_{epoch}.pth')))
-    model = model.to(torch.device(device))
-    model.eval()
-
-    sr = 16000
-    for audio, vertice, template, one_hot_all, file_name in test_loader:
-        vertice = vertice_path = str(vertice[0])
-        vertice = np.load(vertice, allow_pickle=True)
-        vertice = vertice.astype(np.float32)
-        vertice = torch.from_numpy(vertice)
-        
-        if args.dataset == 'vocaset':
-            vertice = vertice[::2, :]
-        vertice = torch.unsqueeze(vertice, 0)
-
-        audio, vertice = audio.to(device=device), vertice.to(device=device)
-        template, one_hot_all = template.to(device=device), one_hot_all.to(device=device)
-
-        num_frames = int(audio.shape[-1] / sr * args.output_fps)
-        shape = (1, num_frames - 1, args.vertice_dim) if num_frames < vertice.shape[1] else vertice.shape
-
-        train_subject = file_name[0].split("_")[0]
-        vertice_path = os.path.split(vertice_path)[-1][:-4]
-        print(vertice_path)
-
-        if train_subject in train_subjects_list or args.dataset in ['beat', 'beat2']:
-            condition_subject = train_subject
-            iter = train_subjects_list.index(condition_subject)
-            one_hot = one_hot_all[:, iter, :]
-            one_hot = one_hot.to(device=device)
-
-            for sample_idx in range(1, args.num_samples + 1):
-                sample = diffusion.p_sample_loop(
-                    model,
-                    shape,
-                    clip_denoised=False,
-                    model_kwargs={
-                        "cond_embed": audio,
-                        "one_hot": one_hot,
-                        "template": template,
-                    },
-                    skip_timesteps=args.skip_steps,  # 0 is the default value - i.e. don't skip any step
-                    init_image=None,
-                    progress=True,
-                    dump_steps=None,
-                    noise=None,
-                    const_noise=False,
-                    device=device
-                )
-                sample = sample.squeeze()
-                sample = sample.detach().cpu().numpy()
-
-                if args.dataset in ['beat', 'beat2']:
-                    out_path = f"{vertice_path}.npy"
-                else:
-                    if args.num_samples != 1:
-                        out_path = f"{vertice_path}_condition_{condition_subject}_{sample_idx}.npy"
-                    else:
-                        out_path = f"{vertice_path}_condition_{condition_subject}.npy"
-                
-                if 'damm' in args.dataset:
-                    sample = RIG_SCALER.inverse_transform(sample)
-                    np.save(os.path.join(args.result_path, out_path), sample)
-                    df = pd.DataFrame(sample)
-                    df.to_csv(os.path.join(args.result_path, f"{vertice_path}.csv"), header=None, index=None)
-                else:
-                    np.save(os.path.join(args.result_path, out_path), sample)
-
-        else:
-            for iter in range(one_hot_all.shape[-1]):
-                condition_subject = train_subjects_list[iter]
-                one_hot = one_hot_all[:, iter, :]
-                one_hot = one_hot.to(device=device)
-
-                # Sample conditioned
-                sample_cond = diffusion.p_sample_loop(
-                    model,
-                    shape,
-                    clip_denoised=False,
-                    model_kwargs={
-                        "cond_embed": audio,
-                        "one_hot": one_hot,
-                        "template": template,
-                    },
-                    skip_timesteps=args.skip_steps,  # 0 is the default value - i.e. don't skip any step
-                    init_image=None,
-                    progress=True,
-                    dump_steps=None,
-                    noise=None,
-                    const_noise=False,
-                    device=device
-                )
-                prediction_cond = sample_cond.squeeze()
-                prediction_cond = prediction_cond.detach().cpu().numpy()
-
-                prediction = prediction_cond
-                
-                if 'damm' in args.dataset:
-                    prediction = RIG_SCALER.inverse_transform(prediction)
-                    df = pd.DataFrame(prediction)
-                    df.to_csv(os.path.join(args.result_path, f"{vertice_path}.csv"), header=None, index=None)
-                else:
-                    np.save(os.path.join(args.result_path, f"{vertice_path}_condition_{condition_subject}.npy"), prediction)
-'''
-
 @torch.no_grad()
 def test_diff(args, model, test_loader, epoch, diffusion, device="cuda"):
     result_path = os.path.join(args.result_path)
@@ -532,29 +417,29 @@ def main():
         lr=args.lr
     )
 
-    # # Train model
-    # print("\nStarting training...\n")
-    # model = trainer_diff(
-    #     args, 
-    #     dataset["train"], 
-    #     dataset["valid"], 
-    #     model, 
-    #     diffusion, 
-    #     optimizer,
-    #     epoch=args.max_epoch, 
-    #     device=args.device
-    # )
-    
-    # Test model
-    print("\nTesting model...\n")
-    test_diff(
+    # Train model - Comment this section after training
+    print("\nStarting training...\n")
+    model = trainer_diff(
         args, 
+        dataset["train"], 
+        dataset["valid"], 
         model, 
-        dataset["test"], 
-        args.max_epoch, 
         diffusion, 
+        optimizer,
+        epoch=args.max_epoch, 
         device=args.device
     )
+    
+    # # Test model - Uncomment this section after training
+    # print("\nTesting model...\n")
+    # test_diff(
+    #     args, 
+    #     model, 
+    #     dataset["test"], 
+    #     args.max_epoch, 
+    #     diffusion, 
+    #     device=args.device
+    # )
     
     print("\n" + "="*60)
     print("Training Complete!")

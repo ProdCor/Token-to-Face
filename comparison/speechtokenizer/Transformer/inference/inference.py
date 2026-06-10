@@ -193,12 +193,6 @@ def run_inference(args):
     # Add batch dimension: (n_q, T) -> (1, n_q, T)
     tokens = tokens.unsqueeze(0).to(device)
 
-    # Determine target length
-    # target_length = calculate_target_length(
-    #     metadata['duration_seconds'],
-    #     args.target_fps
-    # )
-
     num_tokens = metadata['num_tokens']  # T at 50Hz
     target_length = int(num_tokens * args.target_fps / metadata['token_fps'])
 

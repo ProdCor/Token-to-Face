@@ -37,30 +37,6 @@ ARKIT_CATEGORIES = {
     'nose': [49, 50]  # noseSneerLeft, noseSneerRight
 }
 
-'''def get_arkit_mask(categories=['jaw', 'mouth'], as_tensor=False):
-    """
-    Get mask for specific ARKit blendshape categories
-    
-    Args:
-        categories: List of category names to keep (e.g., ['jaw', 'mouth'])
-        as_tensor: If True, return torch.Tensor, else numpy array
-    
-    Returns:
-        mask: Boolean array/tensor of shape (51,)
-    """
-    mask = np.zeros(51, dtype=bool)
-    
-    for category in categories:
-        if category not in ARKIT_CATEGORIES:
-            raise ValueError(f"Unknown category: {category}. Valid: {list(ARKIT_CATEGORIES.keys())}")
-        indices = ARKIT_CATEGORIES[category]
-        mask[indices] = True
-    
-    if as_tensor:
-        return torch.from_numpy(mask)
-    return mask'''
-
-
 def get_arkit_mask(categories=None, as_tensor=False):
     """
     Get mask for specific ARKit blendshape categories
@@ -213,25 +189,3 @@ def verify_blendshape_order():
         print("\n❌ Blendshape order has ERRORS!")
     
     return all_correct
-
-
-'''if __name__ == "__main__":
-    print("="*60)
-    print("ARKit Blendshape Utilities - CORRECTED VERSION")
-    print("="*60)
-    
-    # Verify order
-    verify_blendshape_order()
-    
-    print("\n" + "="*60)
-    
-    # Test mask for mouth + jaw only
-    mask = get_arkit_mask(['jaw', 'mouth'])
-    print_arkit_mask_info(mask)
-    
-    print(f"\n{'='*60}")
-    
-    # Get indices
-    indices = get_arkit_indices(['jaw', 'mouth'])
-    print(f"\nMouth + Jaw indices: {indices}")
-    print(f"Total: {len(indices)} blendshapes")'''

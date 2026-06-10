@@ -58,11 +58,6 @@ class SpeechBlendshapeDataset(Dataset):
         self.fps = fps
         self.chunk_duration = chunk_duration
         self.overlap_duration = overlap_duration
-        
-        # Load speech tokens
-        # logging.info(f"Loading speech tokens from {speech_tokens_path}")
-        # self.speech_tokens = torch.load(speech_tokens_path)
-        # logging.info(f"  Loaded {len(self.speech_tokens)} chunks")
 
         # Load audio    
         self.audio_dir = Path(audio_dir)
@@ -101,29 +96,6 @@ class SpeechBlendshapeDataset(Dataset):
     def _build_index(self):
         """Build index of valid samples"""
         samples = []
-        
-        # for chunk_key in self.speech_tokens.keys():
-        #     # Parse: "utterance_chunk_N"
-        #     parts = chunk_key.split('_chunk_')
-        #     if len(parts) != 2:
-        #         logging.warning(f"Invalid chunk key: {chunk_key}")
-        #         continue
-            
-        #     utterance_id = parts[0]
-        #     chunk_idx = int(parts[1])
-            
-        #     # Find .npz file
-        #     npz_path = self.beat2_dir / f"{utterance_id}.npz"
-        #     if not npz_path.exists():
-        #         logging.warning(f"NPZ not found: {npz_path}")
-        #         continue
-            
-        #     samples.append({
-        #         'chunk_key': chunk_key,
-        #         'utterance_id': utterance_id,
-        #         'chunk_idx': chunk_idx,
-        #         'npz_path': npz_path
-        #     })
 
         # Scan audio files in audio directory
         audio_files = list(self.audio_dir.glob("*.wav"))
@@ -195,10 +167,6 @@ class SpeechBlendshapeDataset(Dataset):
                 - chunk_idx: int
         """
         sample = self.samples[idx]
-        
-        # # Get speech tokens
-        # tokens = self.speech_tokens[sample['chunk_key']]
-        # tokens = torch.LongTensor(tokens)
 
         # Load audio waveform
         # Load with librosa (like FaceDiffuser does)
