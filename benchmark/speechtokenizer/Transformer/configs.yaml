@@ -1,0 +1,37 @@
+# SpeechTokenizer training configuration
+training:
+  # Data
+  train_tokens: '../speechtokenizer_tokens/train_utt2speech_token.pt'
+  val_tokens: '../speechtokenizer_tokens/val_utt2speech_token.pt'
+  beat2_dir: '../../BEAT2/beat_english_v2.0.0/smplxflame_30'
+  
+  # Model - SpeechTokenizer specific
+  vocab_size: 1024  # SpeechTokenizer vocab size per RVQ level
+  n_q: 8            # Number of RVQ quantizer levels
+  d_model: 512
+  nhead: 8
+  num_layers: 6
+  dim_feedforward: 2048
+  dropout: 0.1
+  
+  # Training
+  batch_size: 32
+  num_epochs: 1000
+  lr: 0.0001
+  min_lr: 0.000001
+  weight_decay: 0.01
+  num_workers: 4
+  
+  # Loss
+  loss_type: 'l1'
+  velocity_weight: 0.3
+  smoothness_weight: 0.05
+  
+  # Logging
+  checkpoint_dir: 'checkpoints'
+  log_dir: 'logs_speechtokenizer/cben_blendshape_distill'
+  save_every: 1
+  validate_every: 1
+  
+  # Device
+  device: 'cuda'

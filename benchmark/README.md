@@ -1,4 +1,8 @@
-###Instructions:
+For the reproduction of the results presented in the paper, you will need to clone the repositories for each encoder models, as well as downloading their own pre-trained weights.
+
+I will make it available the environment and requirements I was using for each model.
+
+### Instructions:
 
 1 - Run the create_audio_file_directory.py script to transform the audio samples from the dataset into the correct format.
 
