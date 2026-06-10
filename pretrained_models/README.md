@@ -1,1 +1,1 @@
-Download here the pretrained encoder models (SpeechTokenizer, WavTokenizer, CosyVoice 2).
+Download here the pretrained encoder models (HuBERT, SpeechTokenizer, WavTokenizer, CosyVoice 2).
