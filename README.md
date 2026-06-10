@@ -1,1 +1,7 @@
-# Token-to-Face
+# From Tokens to Faces: Investigating Discrete Speech Representations for 3D Facial Animation
+
+## Official Github repository for the above work, accepted at the 2026 Interspeech (Sydney, Australia, from Sep 27th to Oct 1st)
+
+[general_pipeline_v3.pdf](https://github.com/user-attachments/files/28806542/general_pipeline_v3.pdf)
+
+_Abstract:  The choice of speech representation is critical in speech-driven 3D facial animation. Representations differ in what they encode: SSL features emphasize segmental and semantic cues, neural codecs yield latents optimized for acoustic reconstruction, and ASR-style objectives produce label-based spaces. We evaluate four speech representation families for 3D facial synthesis, comparing their facial reconstruction quality across two facial decoders using objective metrics and a perceptual evaluation. We additionally conduct probing analyses that relate tokenized representations to phonetic units and to articulatory deformations. We found that encoding phonetic classes is beneficial for accurate facial animation prediction on both semantic and label-based representations with comparable facial animation quality. From the latter, we introduce an Audio Visual Text-to-Speech (AVTTS) pipeline that leverages, as a shared space, discrete representations to decode speech and 3D facial motion. _
