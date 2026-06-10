@@ -1,4 +1,5 @@
 # From Tokens to Faces: Investigating Discrete Speech Representations for 3D Facial Animation
+_Pedro Corrêa, Olivier Perrotin, Samir Sadok, Paula Costa, Thomas Hueber_
 
 ### Official Github repository for the work accepted at the 2026 Interspeech (Sydney, Australia, from Sep 27th to Oct 1st)
 
