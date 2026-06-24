@@ -6,8 +6,9 @@
 
 <img width="1332" height="652" alt="pipeline_interspeech_2026" src="https://github.com/user-attachments/assets/a7bac5fe-5538-4441-bb73-b6f944e8c675" />
 
-Demo Page: https://prodcor.github.io/Token-to-Face/
-Paper: https://arxiv.org/abs/2606.13630
+### Demo Page: https://prodcor.github.io/Token-to-Face/
+
+### Paper: https://arxiv.org/abs/2606.13630
 
 ### Abstract
 
