@@ -83,6 +83,7 @@
   }
   .tok.hot { color: var(--accent); border-color: var(--accent-dim); background: rgba(255,106,69,.08); }
   .tok-icon { width: 24px; height: 24px; color: var(--accent); flex-shrink: 0; }
+  .tok-arrow { color: var(--text-mute); font-size: 18px; padding: 0 4px; flex-shrink: 0; }
 
   /* ---------- hero ---------- */
   header.hero { padding: 88px 0 56px; text-align: center; }
@@ -326,17 +327,17 @@ const CONFIG = {
   subtitle: "Investigating Discrete Speech Representations for 3D Facial Animation",
 
   // Use HTML em author/affil se quiser superscripts (ex: "Nome<sup>1</sup>")
-  authors:  "Pedro R. Correa<sup>1,2</sup>, Olivier Perrotin<sup>2</sup>, Samir Sadok<sup>3</sup>, Paula D. P. Costa<sup>1</sup>, Thomas Hueber<sup>2</sup>",
+  authors:  "Pedro R. Correa<sup>1,2</sup>, Olivier Perrotin<sup>2</sup>, Samir Sadok<sup>3</sup>, Paula Costa<sup>1</sup>, Thomas Hueber<sup>2</sup>",
   affil:    "1 — Univ. Estadual de Campinas (UNICAMP), Brazil<br>2 — Univ. Grenoble Alpes, CNRS, Grenoble INP, GIPSA-lab, France<br>3 — Inria at Univ. Grenoble Alpes, CNRS, LJK, France",
 
   links: [
-    { label: "Paper",  href: "https://arxiv.org/abs/2606.13630", primary: true, icon: "doc" },
+    { label: "Paper",  href: "https://arxiv.org/abs/2606.13630", icon: "doc" },
     { label: "Code",   href: "https://github.com/ProdCor/Token-to-Face", icon: "github" },
     { label: "BibTeX", href: "#citation", icon: "quote" },
   ],
 
   // Tokens decorativos do hero (puramente visual; troque os números à vontade)
-  heroTokens: [482, 119, 7, 256, 88, 401, 33, 290, 512, 64, 178, 9, 355, 21],
+  heroTokens: [482, 119, 7, 256, 88, 401, 33, 290],
 
   encoders: ["HuBERT", "CosyVoice2", "SpeechTokenizer", "WavTokenizer"],
   decoders: ["GRU", "Transformer"],
@@ -347,8 +348,8 @@ const CONFIG = {
   avtts: {
     description: "Full audio-visual TTS results: speech and facial animation generated end to end.",
     videos: [
-      { src: "videos/avtts/result1.mp4", caption: "Sample 1" },
-      { src: "videos/avtts/result2.mp4", caption: "Sample 2" },
+      { src: "videos/avtts_all_chunks.mp4", caption: "Sample 1" },
+      //{ src: "videos/avtts/result2.mp4", caption: "Sample 2" },
     ],
   },
 
@@ -357,34 +358,34 @@ const CONFIG = {
   samples: [
     {
       label: "Sample 1",
-      transcript: "(opcional) transcrição da frase desta amostra.",
-      groundTruth: "videos/sample1/ground_truth.mp4",   // "" para esconder
+      transcript: "", //"(opcional) transcrição da frase desta amostra.",
+      groundTruth: "videos/reference.mp4",   // "" para esconder
       videos: {
-        "HuBERT|GRU":            "videos/sample1/hubert_gru.mp4",
-        "HuBERT|Transformer":    "videos/sample1/hubert_transformer.mp4",
-        "CosyVoice2|GRU":        "videos/sample1/cosyvoice2_gru.mp4",
-        "CosyVoice2|Transformer":"videos/sample1/cosyvoice2_transformer.mp4",
-        "SpeechTokenizer|GRU":         "videos/sample1/speechtokenizer_gru.mp4",
-        "SpeechTokenizer|Transformer": "videos/sample1/speechtokenizer_transformer.mp4",
-        "WavTokenizer|GRU":            "videos/sample1/wavtokenizer_gru.mp4",
-        "WavTokenizer|Transformer":    "videos/sample1/wavtokenizer_transformer.mp4",
+        "HuBERT|GRU":            "videos/hubert_GRU.mp4",
+        "HuBERT|Transformer":    "videos/hubert_transformer.mp4",
+        "CosyVoice2|GRU":        "videos/cosyvoice2_GRU.mp4",
+        "CosyVoice2|Transformer":"videos/cosyvoice2_transformer.mp4",
+        "SpeechTokenizer|GRU":         "videos/speechtokenizer_GRU.mp4",
+        "SpeechTokenizer|Transformer": "videos/speechtokenizer_transformer.mp4",
+        "WavTokenizer|GRU":            "videos/wavtokenizer_GRU.mp4",
+        "WavTokenizer|Transformer":    "videos/wavtokenizer_transformer.mp4",
       },
     },
-    {
-      label: "Sample 2",
-      transcript: "",
-      groundTruth: "",
-      videos: {
-        "HuBERT|GRU": "videos/sample2/hubert_gru.mp4",
-        "HuBERT|Transformer": "videos/sample2/hubert_transformer.mp4",
-        "CosyVoice2|GRU": "videos/sample2/cosyvoice2_gru.mp4",
-        "CosyVoice2|Transformer": "videos/sample2/cosyvoice2_transformer.mp4",
-        "SpeechTokenizer|GRU": "videos/sample2/speechtokenizer_gru.mp4",
-        "SpeechTokenizer|Transformer": "videos/sample2/speechtokenizer_transformer.mp4",
-        "WavTokenizer|GRU": "videos/sample2/wavtokenizer_gru.mp4",
-        "WavTokenizer|Transformer": "videos/sample2/wavtokenizer_transformer.mp4",
-      },
-    },
+    // {
+    //   label: "Sample 2",
+    //   transcript: "",
+    //   groundTruth: "",
+    //   videos: {
+    //     "HuBERT|GRU": "videos/sample2/hubert_gru.mp4",
+    //     "HuBERT|Transformer": "videos/sample2/hubert_transformer.mp4",
+    //     "CosyVoice2|GRU": "videos/sample2/cosyvoice2_gru.mp4",
+    //     "CosyVoice2|Transformer": "videos/sample2/cosyvoice2_transformer.mp4",
+    //     "SpeechTokenizer|GRU": "videos/sample2/speechtokenizer_gru.mp4",
+    //     "SpeechTokenizer|Transformer": "videos/sample2/speechtokenizer_transformer.mp4",
+    //     "WavTokenizer|GRU": "videos/sample2/wavtokenizer_gru.mp4",
+    //     "WavTokenizer|Transformer": "videos/sample2/wavtokenizer_transformer.mp4",
+    //   },
+    // },
   ],
 
   bibtex: `@inproceedings{tokens2faces2026,
@@ -423,7 +424,9 @@ function render() {
   const faceIcon = '<svg class="tok-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 10h.01M15 10h.01" stroke-linecap="round"/><path d="M9 14.5c.8.8 1.9 1.2 3 1.2s2.2-.4 3-1.2" stroke-linecap="round"/></svg>';
   $("hero-tokens").innerHTML =
     speechIcon +
+    '<span class="tok-arrow">&rarr;</span>' +
     CONFIG.heroTokens.map((t, i) => `<span class="tok${i % 4 === 2 ? " hot" : ""}">${t}</span>`).join("") +
+    '<span class="tok-arrow">&rarr;</span>' +
     faceIcon;
 
   // links
