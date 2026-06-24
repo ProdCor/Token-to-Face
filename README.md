@@ -24,13 +24,13 @@ In the "comparison", each model has its own conda environment. To create the env
 conda env create -f environment.yml
 ```
 
-When GRU is the archicture from the facial decoder, all the environments are the same, extracted from the FaceDiffuser repository. 
+When GRU is the architecture from the facial decoder, all the environments are the same, extracted from the FaceDiffuser repository. 
 
 ```bash
 conda activate face_diffuser
 ```
 
-When the archicture is the Transformer, each speech encoder has its own environment, extracted from each model repository.
+When the architecture is the Transformer, each speech encoder has its own environment, extracted from each model repository.
 
 ```bash
 conda activate {MODEL_NAME}
