@@ -103,7 +103,7 @@
 
   /* ---------- sections ---------- */
   section { padding: 56px 0; }
-  .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; }
+  .sec-head { display: flex; align-items: baseline; justify-content: center; gap: 16px; margin-bottom: 8px; }
   .sec-num {
     font-family: 'JetBrains Mono', monospace; font-size: 13px;
     color: var(--accent); letter-spacing: .1em;
@@ -112,8 +112,8 @@
     font-family: 'Space Grotesk', sans-serif; font-weight: 600;
     font-size: clamp(26px, 4vw, 36px); letter-spacing: -.015em;
   }
-  .sec-desc { color: var(--text-dim); max-width: 760px; margin-top: 14px; font-size: 16px; }
-  .prose { color: var(--text-dim); max-width: 800px; margin-top: 16px; font-size: 16.5px; line-height: 1.75; }
+  .sec-desc { color: var(--text-dim); max-width: 900px; margin: 14px auto 0; font-size: 16px; text-align: justify; }
+  .prose { color: var(--text-dim); max-width: 960px; margin: 16px auto 0; font-size: 16.5px; line-height: 1.75; text-align: justify; }
 
   .divider { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
@@ -136,7 +136,7 @@
   }
 
   /* ---------- comparison grid ---------- */
-  .sample-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 28px 0 12px; }
+  .sample-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 28px 0 12px; }
   .sample-tabs:empty { margin: 0; }
   .tab {
     font-family: 'JetBrains Mono', monospace; font-size: 13px;
@@ -360,9 +360,9 @@ const CONFIG = {
   // Adicione quantos quiser; cada um vira um tile no grid.
   // caption é opcional ("" para esconder a legenda).
   avtts: {
-    description: "Because these tokens already appear inside text-to-speech systems, the same discrete sequence can drive both the speech waveform and the face. Using CosyVoice2's tokens together with our facial Transformer, this proof-of-concept generates synchronized speech and 3D facial motion directly from text, in a single stage, instead of the usual text-to-audio then audio-to-face pipeline.",
+    description: "Because these tokens already appear inside text-to-speech systems, the same discrete sequence can drive both the speech waveform and the face. Using CosyVoice2's tokens together with our facial Transformer, this proof-of-concept generates synchronized speech and 3D facial motion directly from text — in a single stage, instead of the usual text-to-audio then audio-to-face pipeline.",
     videos: [
-      { src: "videos/avtts_all_chunks.mp4", caption: "Audio and facial movements being simultaneously synthesized from speech tokens." },
+      { src: "videos/avtts_all_chunks.mp4", caption: "Sample 1" },
       //{ src: "videos/avtts/result2.mp4", caption: "Sample 2" },
     ],
   },
