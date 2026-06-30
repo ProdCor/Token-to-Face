@@ -113,6 +113,7 @@
     font-size: clamp(26px, 4vw, 36px); letter-spacing: -.015em;
   }
   .sec-desc { color: var(--text-dim); max-width: 760px; margin-top: 14px; font-size: 16px; }
+  .prose { color: var(--text-dim); max-width: 800px; margin-top: 16px; font-size: 16.5px; line-height: 1.75; }
 
   .divider { border: 0; border-top: 1px solid var(--border); margin: 0; }
 
@@ -242,14 +243,27 @@
 
 <hr class="divider" />
 
-<!-- 01 — Encoder x Decoder comparison -->
-<section id="comparison">
+<!-- 01 — Abstract -->
+<section id="abstract">
   <div class="wrap">
     <div class="sec-head">
       <span class="sec-num">01</span>
+      <h2 class="sec-title">Abstract</h2>
+    </div>
+    <p class="prose" id="abstract-text"></p>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- 02 — Encoder x Decoder comparison -->
+<section id="comparison">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">02</span>
       <h2 class="sec-title">Encoders &times; decoders</h2>
     </div>
-    <p class="sec-desc">Same utterance animated from four discrete speech representations, each paired with both decoder architectures.</p>
+    <p class="sec-desc" id="comparison-desc"></p>
 
     <div class="sample-tabs" id="sample-tabs"></div>
     <div id="transcript-slot"></div>
@@ -261,11 +275,11 @@
 
 <hr class="divider" />
 
-<!-- 02 — AVTTS results -->
+<!-- 03 — AVTTS results -->
 <section id="avtts">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-num">02</span>
+      <span class="sec-num">03</span>
       <h2 class="sec-title">AVTTS results</h2>
     </div>
     <p class="sec-desc" id="avtts-desc"></p>
@@ -275,11 +289,24 @@
 
 <hr class="divider" />
 
-<!-- 03 — Citation -->
+<!-- 04 — Conclusion -->
+<section id="conclusion">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-num">04</span>
+      <h2 class="sec-title">Conclusion</h2>
+    </div>
+    <p class="prose" id="conclusion-text"></p>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- 05 — Citation -->
 <section id="citation">
   <div class="wrap">
     <div class="sec-head">
-      <span class="sec-num">03</span>
+      <span class="sec-num">05</span>
       <h2 class="sec-title">Citation</h2>
     </div>
     <div class="cite-box">
@@ -314,6 +341,15 @@ const CONFIG = {
     { label: "BibTeX", href: "#citation", icon: "quote" },
   ],
 
+  // Abstract — texto do paper (CC BY 4.0). Edite à vontade.
+  abstract: "The choice of speech representation is critical in speech-driven 3D facial animation. Representations differ in what they encode: SSL features emphasize segmental and semantic cues, neural codecs yield latents optimized for acoustic reconstruction, and ASR-style objectives produce label-based spaces. We evaluate four speech representation families for 3D facial synthesis, comparing their facial reconstruction quality across two facial decoders using objective metrics and a perceptual evaluation. We additionally conduct probing analyses that relate tokenized representations to phonetic units and to articulatory deformations. We found that encoding phonetic classes is beneficial for accurate facial animation prediction on both semantic and label-based representations with comparable facial animation quality. From the latter, we introduce an Audio Visual Text-to-Speech (AVTTS) pipeline that leverages, as a shared space, discrete representations to decode speech and 3D facial motion.",
+
+  // Conclusion — texto do paper (CC BY 4.0). Edite à vontade.
+  conclusion: "This work presented a systematic comparison of semantic, semantic+acoustic, acoustic, and label-based speech representations for 3D facial animation generation. Our results demonstrated that both semantic and label-based representations are suitable candidates for this task, and that they have similar perceptual performance. Probing analysis revealed that phonetic information encoding seems to be a necessary condition for the task, provided that low-structured acoustic information is not present. We also found a correlation between high performance and the encoding of either discrete or continuous facial representations. Finally, we showed that the shared representation between speech synthesis and facial animation enables a unified Audio Visual Text-to-Speech pipeline, which is an interesting alternative to the conventional two-stage generation paradigm. More broadly, this paves the way to more versatile multimodal speech language models, in which decoders can be easily adapted to frozen LLM backbones.",
+
+  // Texto introdutório da seção Encoders x decoders (orienta quem não leu o paper).
+  comparisonIntro: "We compare four speech representations, each paired with two facial decoders. The encoders span four representation types — HuBERT (semantic), SpeechTokenizer (semantic + acoustic), WavTokenizer (acoustic), and CosyVoice2 (label-based) — while the decoders are a recurrent GRU and a Transformer. Every clip below animates the same utterance, so you can compare each representation against the ground-truth reference and judge how faithfully the lips, jaw, and mouth follow the speech.",
+
   // Tokens decorativos do hero (puramente visual; troque os números à vontade)
   heroTokens: [482, 119, 7, 256, 88, 401, 33, 290],
 
@@ -324,7 +360,7 @@ const CONFIG = {
   // Adicione quantos quiser; cada um vira um tile no grid.
   // caption é opcional ("" para esconder a legenda).
   avtts: {
-    description: "Full audio-visual TTS results: speech and facial animation generated end to end.",
+    description: "Because these tokens already appear inside text-to-speech systems, the same discrete sequence can drive both the speech waveform and the face. Using CosyVoice2's tokens together with our facial Transformer, this proof-of-concept generates synchronized speech and 3D facial motion directly from text, in a single stage, instead of the usual text-to-audio then audio-to-face pipeline.",
     videos: [
       { src: "videos/avtts_all_chunks.mp4", caption: "Sample 1" },
       //{ src: "videos/avtts/result2.mp4", caption: "Sample 2" },
@@ -411,6 +447,11 @@ function render() {
   $("links").innerHTML = CONFIG.links.map(l =>
     `<a class="btn${l.primary ? " primary" : ""}" href="${l.href}">${ICONS[l.icon] || ""}${l.label}</a>`
   ).join("");
+
+  // abstract + conclusion + section intros
+  $("abstract-text").textContent = CONFIG.abstract;
+  $("conclusion-text").textContent = CONFIG.conclusion;
+  $("comparison-desc").textContent = CONFIG.comparisonIntro;
 
   // avtts results
   $("avtts-desc").textContent = CONFIG.avtts.description;
